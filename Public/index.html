@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MOBA Multiplayer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #000; 
+            color: white; 
+            font-family: Arial;
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        #gameCanvas {
+            background: #111;
+            display: block;
+        }
+        
+        /* UI */
+        #gameUI {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            pointer-events: none;
+        }
+        
+        .healthBar {
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            margin: 5px 0;
+            overflow: hidden;
+        }
+        
+        .healthFill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+        
+        #mortalHealth { background: #4169E1; }
+        #ancientHealth { background: #8B0000; }
+        
+        #gameInfo {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        /* Connection */
+        #connectionStatus {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .connected { background: #00ff00; color: black; }
+        .disconnected { background: #ff0000; color: white; }
+        
+        /* Mobile Controls */
+        #mobileControls {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: none;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        #joystickArea {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        #joystickHandle {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+        
+        #abilityButtons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .abilityBtn {
+            width: 70px;
+            height: 70px;
+            background: rgba(0,100,255,0.7);
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: all;
+        }
+        
+        /* Game Over */
+        #gameOver {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        
+        #winnerText {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        #restartBtn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: #4169E1;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Mobile detection */
+        @media (max-width: 768px) {
+            #mobileControls { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="gameUI">
+            <div class="healthBar">
+                <div id="mortalHealthFill" class="healthFill" style="width: 100%"></div>
+            </div>
+            <div class="healthBar">
+                <div id="ancientHealthFill" class="healthFill" style="width: 100%"></div>
+            </div>
+            
+            <div id="gameInfo">
+                <div>Mortal Base: <span id="mortalBaseHealth">500</span></div>
+                <div>Ancient Base: <span id="ancientBaseHealth">500</span></div>
+                <div>Players: <span id="playerCount">0/2</span></div>
+            </div>
+        </div>
+        
+        <div id="connectionStatus" class="disconnected">Disconnected</div>
+        
+        <div id="mobileControls">
+            <div id="joystickArea">
+                <div id="joystickHandle"></div>
+            </div>
+            
+            <div id="abilityButtons">
+                <div class="abilityBtn" onclick="useAbility('q')">AOE</div>
+                <div class="abilityBtn" onclick="useAbility('w')">SPEED</div>
+                <div class="abilityBtn" onclick="useAbility('e')">PULL</div>
+                <div class="abilityBtn" onclick="useAbility('r')">HEAL</div>
+            </div>
+        </div>
+        
+        <div id="gameOver">
+            <div id="winnerText"></div>
+            <button id="restartBtn" onclick="window.location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
