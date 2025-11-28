@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "node server.js"
+
+[[services]]
+name = "web"
+httpPort = 3000
