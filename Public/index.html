@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MOBA Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #000; 
+            color: white; 
+            font-family: Arial;
+            text-align: center;
+            padding: 20px;
+            touch-action: manipulation;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h1 { 
+            color: #4169E1; 
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .status { 
+            background: #00ff00; 
+            color: black; 
+            padding: 15px; 
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .info {
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .button {
+            background: #4169E1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .mobile-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .control-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 MOBA Multiplayer</h1>
+        <div class="status">✅ Game Server Ready!</div>
+        
+        <div class="info">
+            <strong>Touch Controls:</strong>
+            <div class="mobile-controls">
+                <div class="control-btn">Move: Virtual Joystick</div>
+                <div class="control-btn">Q: AOE Attack</div>
+                <div class="control-btn">W: Speed Boost</div>
+                <div class="control-btn">E: Pull Enemy</div>
+                <div class="control-btn">R: Health Boost</div>
+                <div class="control-btn">Auto Attack</div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <strong>Game Features:</strong>
+            <br>• Real-time 1v1 multiplayer
+            <br>• Mortal vs Ancient heroes
+            <br>• Towers and minions
+            <br>• Special abilities
+            <br>• Cross-platform play
+        </div>
+        
+        <button class="button" onclick="startGame()">Start Game</button>
+        <button class="button" onclick="shareGame()">Share with Friends</button>
+        
+        <div class="info" id="urlDisplay">
+            <strong>Game URL:</strong><br>
+            <span id="gameUrl">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        // Display current URL
+        document.getElementById('gameUrl').textContent = window.location.href;
+        
+        function startGame() {
+            alert('Game starting soon! Multiplayer features being added...');
+            console.log('Starting MOBA game...');
+        }
+        
+        function shareGame() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Play MOBA Multiplayer with me!',
+                    text: '1v1 MOBA game - Mortal vs Ancient',
+                    url: url
+                });
+            } else {
+                // Fallback - copy to clipboard
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Game URL copied! Send it to friends: ' + url);
+                });
+            }
+        }
+        
+        console.log('MOBA Mobile Game Loaded!');
+        console.log('Ready for multiplayer deployment');
+    </script>
+</body>
+</html>
